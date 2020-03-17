@@ -1,0 +1,43 @@
+﻿@using Microsoft.Extensions.Localization
+@using MyBooks.Core;
+
+@inject IStringLocalizer<CommonResources> Localizer
+
+<div id="top_bar">
+    <div class="md-top-bar">
+        <div class="uk-width-large-8-10 uk-container-center">
+            <ul class="top_bar_nav" id="list_grid_toggle_@ViewData["UniqueId"]">
+                <li data-view="grid_view">
+                    <a href="#"><i class="uk-icon-th-large uk-margin-small-right"></i>@Localizer["Mosaico"]</a>
+                </li>
+                <li data-view="list_view">
+                    <a href="#"><i class="uk-icon-list uk-margin-small-right"></i>@Localizer["Lista"]</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--<div class="uk-grid">
+    <div class="uk-width-medium-1-1">
+        <ul class="uk-pagination mb_pagination mb_pagination_pages_@ViewData["UniqueId"]">
+        </ul>
+    </div>
+</div>-->
+
+
+<div id="listaLibros_@ViewData["UniqueId"]" class="uk-grid uk-grid-medium uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-5">
+
+</div>
+
+<div class="uk-grid">
+    <div class="uk-width-medium-1-1">
+        <ul class="uk-pagination mb_pagination_pages mb_pagination_pages_@ViewData["UniqueId"]">
+        </ul>
+    </div>
+</div>
+
+<div id="listGridNoResults_@ViewData["UniqueId"]" style="display: none; text-align: center; height: 200px;">
+    <img class="uk-margin-small-top" src="~/img/owlsad-min.png" style="height: 100%" />
+    <h3 class="uk-text-muted uk-margin-small-top">@Localizer["NadaQueMostrar"]</h3>
+</div>

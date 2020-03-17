@@ -1,0 +1,29 @@
+﻿@using MyBooks.ViewModels
+@using Microsoft.Extensions.Localization
+@using MyBooks.Controllers;
+
+@inject IStringLocalizer<BookList> Localizer
+
+<div class="uk-button-dropdown mb_btn_add_lista_libro_container" data-uk-dropdown="{mode:'click'}">
+    <button id="btnAddLibroLista" class="mb_book_id_item mb_btn_add_lista_libro mb_text_one_line_ellipsis md-btn md-btn-success md-btn-block md-btn-wave-light waves-effect waves-button waves-light" style="background: #9e9e9e">
+        <i class="uk-icon-justify uk-icon-book uk-margin-small-right mb_main_icon_button"></i>
+        <span id="listName">@Localizer["AnadirLibroLista"]</span>
+    </button>
+    <div class="uk-dropdown">
+        <ul class="uk-nav uk-nav-dropdown" style="text-align: left">
+            @foreach (BookListViewModel bookList in (List<BookListViewModel>)ViewData["UserBookLists"])
+            {
+                <li>
+                    <a class="mb_book_id_item uk-dropdown-close" data-list-color="@Html.DisplayFor(modelItem => bookList.Color)" data-list-id="@Html.DisplayFor(modelItem => bookList.Id)" onclick="MB_BookList.addToList(this)">
+                        <i class="uk-icon-circle uk-margin-small-right" style="color: @Html.DisplayFor(modelItem => bookList.Color);"></i>
+                        <span id="listName">@Html.DisplayFor(modelItem => bookList.Name)</span>
+                    </a>
+                </li>
+            }
+            <li class="uk-nav-divider" id="firstDefaultElement"></li>
+            <li><a class="mb_book_id_item uk-dropdown-close" onclick="MB_BookList.addListBookAndBook(this)">@Localizer["AnadirLibroNuevaLista"]...</a></li>
+            <li class="uk-nav-divider deleteToListElement"></li>
+            <li class="deleteToListElement" id="deleteToListOption"><a class="mb_book_id_item uk-dropdown-close" onclick="MB_BookList.deleteToList(this)">@Localizer["BorrarLibroLista"]</a></li>
+        </ul>
+    </div>
+</div>

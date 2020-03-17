@@ -1,0 +1,91 @@
+﻿@using Microsoft.Extensions.Localization
+@using MyBooks.Core;
+
+@inject IStringLocalizer<CommonResources> Localizer
+<!-- main sidebar -->
+<aside id="sidebar_main">
+
+    <div class="sidebar_main_header">
+        <div class="sidebar_logo" style="height: 100%;">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="sSidebar_hide sidebar_logo_large" style="margin:20px;">
+                <img class="logo_regular" src="~/img/logoMyBooks-min.png" alt="MyBooks" />
+                <img class="logo_light" src="~/img/logoMyBooks-min.png" alt="MyBooks" />
+            </a>
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="sSidebar_show sidebar_logo_small">
+                <img class="logo_regular" src="~/img/logoMyBooks-min.png" alt="MyBooks" />
+                <img class="logo_light" src="~/img/logoMyBooks-min.png" alt="MyBooks" />
+            </a>
+        </div>
+    </div>
+
+    <div class="menu_section">
+        <ul>
+            <li title="Inicio" class="current_section">
+                <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <span class="menu_icon"><i class="material-icons">&#xE871;</i></span>
+                    <span class="menu_title">@Localizer["Inicio"]</span>
+                </a>
+            </li>
+
+            <li title="Mi Biblioteca" style="opacity: 0.5">
+                <a href="javascript: void(0);">
+                    <span class="menu_icon"><i class="uk-icon-justify uk-icon-book mb_icon_sidebar"></i></span>
+                    <span class="menu_title" data-uk-tooltip="{pos:'right'}" title="@Localizer["EnDesarrollo"]">@Localizer["MiBiblioteca"]</span>
+                </a>
+            </li>
+
+            <li title="Mis Publicaciones" style="opacity: 0.5">
+                <a href="javascript: void(0);">
+                    <span class="menu_icon"><i class="uk-icon-justify uk-icon-pencil-square-o mb_icon_sidebar"></i></span>
+                    <span class="menu_title" data-uk-tooltip="{pos:'right'}" title="@Localizer["EnDesarrollo"]">@Localizer["MisPublicaciones"]</span>
+                </a>
+            </li>
+
+            <li title="Amigos" style="opacity: 0.5">
+                <a href="javascript: void(0);">
+                    <span class="menu_icon"><i class="uk-icon-justify uk-icon-users mb_icon_big_sidebar"></i></span>
+                    <span class="menu_title" data-uk-tooltip="{pos:'right'}" title="@Localizer["EnDesarrollo"]">@Localizer["Amigos"]</span>
+                </a>
+            </li>
+
+            <li title="Autores" style="opacity: 0.5">
+                <a href="javascript: void(0);">
+                    <span class="menu_icon"><i class="uk-icon-justify uk-icon-pencil mb_icon_big_sidebar"></i></span>
+                    <span class="menu_title" data-uk-tooltip="{pos:'right'}" title="@Localizer["EnDesarrollo"]">@Localizer["Autores"]</span>
+                </a>
+            </li>
+
+            <li title="Grupos de Lectura" style="opacity: 0.5">
+                <a href="javascript: void(0);">
+                    <span class="menu_icon"><i class="uk-icon-justify uk-icon-comments mb_icon_sidebar"></i></span>
+                    <span class="menu_title" data-uk-tooltip="{pos:'right'}" title="@Localizer["EnDesarrollo"]">@Localizer["GruposLectura"]</span>
+                </a>
+            </li>
+
+            <li title="Intercambio de Libros" style="opacity: 0.5">
+                <a href="javascript: void(0);">
+                    <span class="menu_icon"><i class="uk-icon-justify uk-icon-exchange mb_icon_sidebar"></i></span>
+                    <span class="menu_title" data-uk-tooltip="{pos:'right'}" title="@Localizer["EnDesarrollo"]">@Localizer["IntercambioLibros"]</span>
+                </a>
+            </li>
+
+
+        </ul>
+    </div>
+
+
+
+    <div id="footer_sidebar" data-uk-tooltip="{pos:'right'}" title="@Localizer["EnDesarrollo"]">
+        <h3>@Localizer["PreguntaEncuesta"]</h3>
+        <h5>@Localizer["RespondeAyudaUsuarios"]...</h5>
+        <div class="uk-width-large-1-1 uk-width-medium-1-1">
+            <div class="uk-input-group">
+                <label>@Localizer["BuscarLibro"]...</label>
+                <input type="text" class="md-input" disabled />
+                <span class="uk-input-group-addon">
+                    <a href="javascript: void(0);"><i class="material-icons">&#xE163;</i></a>
+                </span>
+            </div>
+        </div>
+    </div>
+</aside><!-- main sidebar end -->

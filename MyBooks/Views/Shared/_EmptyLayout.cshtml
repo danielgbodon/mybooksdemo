@@ -1,0 +1,48 @@
+﻿@using System.Globalization;
+
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentCulture" style="background: #ececec;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <link rel="icon" type="image/png" href="~/img/FaviconMyBooks_16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="~/img/FaviconMyBooks_32.png" sizes="32x32">
+
+    @RenderSection("Styles", false)
+
+    <title>@ViewData["Title"] - MyBooks</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' rel='stylesheet' type='text/css'>
+
+    <!-- uikit -->
+    <link rel="stylesheet" href="~/bower_components/uikit/css/uikit.almost-flat.min.css" media="all">
+
+
+    <!-- matchMedia polyfill for testing media queries in JS -->
+    <!--[if lte IE 9]>
+        <script type="text/javascript" src="~/bower_components/matchMedia/matchMedia.js"></script>
+        <script type="text/javascript" src="~/bower_components/matchMedia/matchMedia.addListener.js"></script>
+        <link rel="stylesheet" href="~/assets/css/ie.css" media="all">
+    <![endif]-->
+
+</head>
+
+<body class="login_page">
+
+    @RenderBody()
+
+    <!-- common functions -->
+    <script src="~/assets/js/common.min.js"></script>
+    <script src="~/js/common.js"></script>
+    <!-- uikit functions -->
+    <script src="~/assets/js/uikit_custom.min.js"></script>
+    <!-- altair common functions/helpers -->
+    <script src="~/assets/js/altair_admin_common.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

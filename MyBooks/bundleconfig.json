@@ -1,0 +1,68 @@
+[
+  {
+    "outputFileName": "wwwroot/js/languages/translator-en.min.js",
+    "inputFiles": [
+      "wwwroot/js/languages/translator-en.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/languages/translator-es.min.js",
+    "inputFiles": [
+      "wwwroot/js/languages/translator-es.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/authentication.min.js",
+    "inputFiles": [
+      "wwwroot/js/authentication.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/common.min.js",
+    "inputFiles": [
+      "wwwroot/js/common.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/form.min.js",
+    "inputFiles": [
+      "wwwroot/js/form.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/tour.min.js",
+    "inputFiles": [
+      "wwwroot/js/tour.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/assets/js/common.min.js",
+    "inputFiles": [
+      "wwwroot/assets/js/common.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/assets/js/uikit_custom.min.js",
+    "inputFiles": [
+      "wwwroot/assets/js/uikit_custom.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/assets/js/altair_admin_common.min.js",
+    "inputFiles": [
+      "wwwroot/assets/js/altair_admin_common.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/general.min.css",
+    "inputFiles": [
+      "wwwroot/css/general.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/site.css"
+    ]
+  }
+]

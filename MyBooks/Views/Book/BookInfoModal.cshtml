@@ -1,0 +1,28 @@
+﻿@using Microsoft.Extensions.Localization
+@using MyBooks.Controllers;
+
+@inject IStringLocalizer<Book> Localizer
+
+<div class="uk-modal" id="bookInfoModal">
+    <div class="uk-modal-dialog uk-modal-dialog-large">
+        <button type="button" class="uk-modal-close uk-close"></button>
+
+
+        <div class="uk-grid uk-grid-divider uk-grid-medium uk-overflow-container">
+            <div class="uk-width-large-3-10  uk-margin-medium-bottom" style="text-align: center;">
+                <img class="img_medium mb_book_img" />
+            </div>
+
+            <div class="uk-width-large-7-10">
+                <h1 class="mb_book_title"></h1>
+                <h2 class="mb_book_author"></h2>
+                <h3 class="uk-text-muted"></h3>
+                <p class="uk-text-justify mb_book_desc"></p>
+            </div>
+        </div>
+
+        <div class="uk-modal-footer uk-text-right">
+            <button id="btnViewDetails" onclick="MB_Book.viewDetails(this)" type="button" class="md-btn md-btn-flat md-btn-flat-primary">@Localizer["VerDetalles"]...</button>
+        </div>
+    </div>
+</div>

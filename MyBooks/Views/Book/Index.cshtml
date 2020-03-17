@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewData["Title"] = "Buscador de libros";
+}
+
+@section Styles {
+    <link href="~/bower_components/kendo-ui/styles/kendo.common-material.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/bower_components/kendo-ui/styles/kendo.material.min.css" rel="stylesheet" type="text/css" id="kendoCSS" />
+}
+
+<!--<h3 id="searchTitle" class="heading_a"></h3>-->
+<!-- <div class="uk-grid" data-uk-grid-margin>
+    <h3 class="heading_a">Probando la búsqueda =)</h3>
+    <div class="uk-width-medium-1-1">
+        <label>Buscar libro...</label>
+        <input id="txtBuscar" type="text" class="md-input uk-form-width-large" />
+    </div>
+
+    <div class="uk-width-medium-1-3">
+        <button id="btnBuscar" class="md-btn md-btn-primary md-btn-wave-light md-btn-icon" onclick="searchBooks(0)">
+            <i class="uk-icon-search"></i>
+            Buscar
+        </button>
+    </div>
+</div> -->
+
+<partial name="~/Views/BookList/CreateModal.cshtml" />
+
+<partial name="~/Views/Common/GridListView.cshtml" />
+
+<partial name="~/Views/Templates/BookCard.cshtml" />
+
+<partial name="~/Views/Book/BookInfoModal.cshtml" />
+
+@section scripts{
+
+    <!-- kendo UI -->
+    <script src="~/assets/js/kendoui_custom.min.js"></script>
+
+    <script>
+
+        let listGridViewController = new MB_ListGridView('@ViewData["UniqueId"]');
+
+        function searchBooks(numPagina) {
+            let bntBuscar = $("#btnBuscar");
+            bntBuscar.attr("disabled", true).addClass("disabled");
+            let txtBuscar = $("#txtGeneralSearch").val();
+            MB_Book.search(txtBuscar, numPagina, function (result) {
+                listGridViewController.loadGridView(result, MB_Book.addCardView);
+                history.pushState({}, "Buscador de libros", '/book?search=' + txtBuscar + '&page=' + numPagina)
+                MB_Scroll.toTop();
+            },
+            function (xmlhttprequest, textstatus, errorthrown) {
+                console.log("CONNECTION FAILED");
+                console.log("error: " + errorthrown);
+            },
+            function () {
+                bntBuscar.attr("disabled", false).removeClass("disabled");
+            });
+        }
+
+        $(function () {
+            listGridViewController.init();
+            MB_BookList.initFormModal();
+
+            @if(ViewData.ContainsKey("Search") && ViewData.ContainsKey("Page"))
+            {
+                @:$("#txtGeneralSearch").val('@ViewData["Search"]');
+                @:searchBooks(@ViewData["Page"]);
+            }
+        });
+    </script>
+
+}
+

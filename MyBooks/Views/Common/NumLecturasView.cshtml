@@ -1,0 +1,10 @@
+﻿@using Microsoft.Extensions.Localization
+@using MyBooks.Controllers;
+
+@inject IStringLocalizer<Book> Localizer
+
+<span class="uk-text-small uk-text-muted mb_num_views">
+    <i class="uk-icon-justify uk-icon-eye uk-margin-small-right mb_main_icon"></i>
+    1312 @Localizer["Lecturas"]
+</span>
+

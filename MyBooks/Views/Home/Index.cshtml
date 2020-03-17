@@ -1,0 +1,153 @@
+﻿@using MyBooks.ViewModels
+@using Microsoft.Extensions.Localization
+@using MyBooks.Controllers;
+@using MyBooks.Core;
+
+@inject IStringLocalizer<CommonResources> LocalizerCommon
+@inject IStringLocalizer<BookList> LocalizerBookList
+
+@{
+    ViewData["Title"] = LocalizerCommon["Titulo"];
+}
+
+@section Styles {
+    <link href="~/bower_components/kendo-ui/styles/kendo.common-material.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/bower_components/kendo-ui/styles/kendo.material.min.css" rel="stylesheet" type="text/css" id="kendoCSS" />
+}
+
+<div class="uk-grid" data-uk-grid-margin>
+    <div class="uk-width-1-1">
+        <ul id="userBookListsSlider" class="md-list md-list-addon uk-nestable" data-uk-nestable="{handleClass:'uk-nestable-handle'}">
+        </ul>
+    </div>
+</div>
+
+<div class="md-fab-wrapper" data-uk-tooltip="{pos:'left'}" title="@LocalizerBookList["CrearLista"]">
+    <a id="bntAddLista" class="md-fab md-fab-success md-fab-wave-light" onclick="addList()"><i class="material-icons">add</i></a>
+</div>
+
+<partial name="~/Views/BookList/CreateModal.cshtml" />
+
+<partial name="~/Views/Book/BookInfoModal.cshtml" />
+
+<partial name="~/Views/Templates/BookListSlider.cshtml" />
+<partial name="~/Views/Templates/BookCardMini.cshtml" />
+
+
+@section Scripts {
+
+    <!-- form (validation) -->
+    <script>
+        // load parsley config (altair_admin_common.js)
+        altair_forms.parsley_validation_config();
+    </script>
+    <script src="~/bower_components/parsleyjs/dist/parsley.min.js"></script>
+    <script src="~/js/form.min.js"></script>
+
+    <!-- kendo UI -->
+    <script src="~/assets/js/kendoui_custom.min.js"></script>
+
+
+
+    @if (ViewData.ContainsKey("LoadTraining") && ((bool)ViewData["LoadTraining"]) == true)
+    {
+
+        @:<script src="/assets/js/custom/enjoyhint.min.js"></script>
+        @:<script src="/js/tour.min.js"></script>
+        @:<script>
+            @:MB_Tour.runHome();
+        @:</script>
+    }
+
+    <script>
+
+    let currentListOrder = [];
+        $(function () {
+            MB_FormValidation.init('#formBookList');
+            MB_BookList.initFormModal();
+
+            let bookList, book;
+            @foreach (BookListViewModel bookList in (List<BookListViewModel>)ViewData["UserBookLists"])
+            {
+                @:bookList = {
+                    @:id: '@bookList.Id', name: '@bookList.Name', color: '@bookList.Color', removable: '@bookList.Removable', books: []
+                @:};
+
+                @foreach (BookViewModel book in bookList.Books)
+                {
+                    @:book = {
+                        @:id: '@book.Id', title: '@book.Title', authors: [], image: '@Html.Raw(book.SmallImage)', description: '@book.Description'
+                    @:};
+
+                    @foreach (string author in book.Authors)
+                    {
+                        @:book.authors.push('@author')
+                    }
+
+                    @:bookList.books.push(book);
+                }
+                @:MB_BookList_Slider.add("#userBookListsSlider", bookList);
+                @:currentListOrder.push('@bookList.Id');
+            }
+
+        $('#userBookListsSlider').on('change.uk.nestable', function (e) {
+            var listIdOrdered = [];
+            $(this).children('li').each(function (i, item) {
+                listIdOrdered.push($(item).attr('data-book-list-id'));
+            });
+
+            let uploadChanges = false;
+            if (currentListOrder.length != listIdOrdered.length) {
+                uploadChanges = true;
+            }
+            else {
+                for (index = 0; index < currentListOrder.length; index++) {
+                    if (listIdOrdered[index] != currentListOrder[index]) {
+                        uploadChanges = true;
+                        break;
+                    }
+                }
+            }
+
+            if (uploadChanges) {
+                MB_BookList.reorder(listIdOrdered, function () {
+                    currentListOrder = listIdOrdered;
+                });
+            }
+        });
+    });
+
+    function addList() {
+        MB_BookList.showToAdd(function (bookList) {
+            MB_BookList_Slider.add('#userBookListsSlider', bookList);
+            currentListOrder.push(bookList.id.toString());
+            MB_Scroll.toBottomAnimate();
+        });
+    }
+
+    function editList(elem) {
+        let listSelected = $(elem).closest('.mb_book_list_slider');
+
+        MB_BookList.showToEdit({
+            id: listSelected.attr("data-book-list-id"),
+            name: listSelected.attr("data-book-list-name"),
+            color: listSelected.attr("data-book-list-color")
+        }, function (bookList) {
+            MB_BookList_Slider.edit('#userBookListsSlider', bookList);
+            $(MB_BookList.modalSelector).find('button.uk-close').click();
+        });
+    }
+
+    function deleteList(elem) {
+        let listSelected = $(elem).closest('.mb_book_list_slider');
+        let id = listSelected.attr('data-book-list-id');
+        let name = listSelected.attr('data-book-list-name');
+        MB_Modal.confirm('¿Estás seguro de que desea borrar la lista <b>' + name + '</b>?',
+        function () {
+            MB_BookList.delete(id, MB_BookList_Slider.delete('#userBookListsSlider', id));
+            let indexId = currentListOrder.indexOf(id.toString());
+            if (indexId > -1) currentListOrder.splice(indexId, 1);
+        });
+    }
+    </script>
+}

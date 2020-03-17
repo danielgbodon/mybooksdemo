@@ -1,0 +1,218 @@
+﻿body.mb_without_header {
+    padding-top: 0px;
+}
+
+#footer_sidebar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: #fff;
+    padding: 1rem 1rem;
+    border-top: 1px solid rgba(0,0,0,.12);
+    background-color:#DBDBDB;
+}
+
+#footer_sidebar h3 {
+    text-align:center;
+    
+}
+
+#footer_sidebar h5 {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.mb_book_card_container {
+    height: 100%;
+}
+
+.mb_book_card {
+    cursor: pointer;
+}
+
+    .mb_book_card .md-card-head {
+        height: 212px;
+    }
+
+.mb_img_full_width {
+    object-fit: cover !important;
+    width: 100% !important;
+}
+
+    .mb_book_card .md-card-content {
+        height: 180px;
+    }
+
+    .mb_book_card .mb_book_card_content {
+        height: calc(100% - 70px);
+    }
+
+    .mb_book_card .mb_book_title {
+        margin-bottom: 0px !important;
+        max-height: 42px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .mb_book_card .mb_book_author {
+        margin-top: 0px;
+        margin-bottom: 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .mb_book_card .mb_book_desc {
+        height: calc(100% - 60px);
+        text-align: justify;
+        margin-top: 0px;
+    }
+
+    .mb_book_card .mb_book_card_footer {
+        margin-bottom: 1rem;
+        float: right;
+        width: 100%;
+        text-align: end;
+    }
+
+    .mb_book_card .mb_btn_lista_container {
+        max-width: 250px;
+        width: 100%;
+    }
+
+.mb_text_one_line_ellipsis {
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+.mb_btn_add_lista_libro_container {
+    width: 100%;
+}
+
+.mb_main_icon_button {
+    margin-top: 8px;
+    float: left;
+}
+
+.mb_pagination_pages {
+    margin: 24px 0px;
+}
+
+.mb_start_rating_view {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mb_num_views .mb_main_icon {
+    zoom: 1.2
+}
+
+.mb_no_margin_top {
+    margin-top: 0px
+}
+
+.mb_icon_sidebar {
+    zoom: 1.6;
+}
+
+.mb_icon_big_sidebar {
+    zoom: 1.4;
+}
+
+.mb_user_btn_header {
+    max-width: 150px;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mb_book_list_slider {
+    margin-left: 0px !important;
+    border-bottom: none !important;
+}
+
+    .mb_book_list_slider .md-list-content {
+        padding: 2px 8px;
+        height: 32px;
+    }
+
+    .mb_book_list_slider .md-list-action {
+        zoom: 0.8;
+        margin-top: -4px !important;
+    }
+
+    .mb_book_list_slider #emptyBookListContainer {
+        height: 255px;
+    }
+
+.mb_book_categories{
+    text-transform: uppercase;
+}
+
+.mb_book_card_mini {
+    height: 255px;
+    cursor: pointer;
+}
+
+    .mb_book_card_mini .mb_book_card_img {
+        height: 70%;
+    }
+
+    .mb_book_card_mini .md-card-content {
+        text-align: center;
+        padding: 8px 16px;
+        height: 30%;
+    }
+
+    .mb_book_card_mini .mb_book_title {
+        height: calc(100% - 20px);
+        overflow: hidden;
+    }
+
+    .mb_book_card_mini .mb_book_desc {
+        display: none;
+    }
+
+.mb_book_list_slider #emptyBookListContainer img {
+    height: calc(100% - 75px);
+    padding: 1rem;
+}
+
+.mb_book_list_item_view .mb_book_img {
+    max-height: 80px;
+    width: auto;
+}
+
+.mb_welcome_question .mb_question {
+    padding: 8px 16px;
+    margin: 0;
+    position: inherit;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.mb_welcome_question .md-card-head {
+    height: 75px;
+    position: relative;
+}
+
+.mb_welcome_question .mb_book_img {
+    height: 200px;
+    width: auto;
+}
+
+.mb_welcome_question .mb_book_container {
+    text-align: center;
+}
+
+.enjoyhint_next_btn {
+    padding: 0rem 0.5rem;
+}
+
+#languageSelector .selectize-input {
+    border-width: 0 !important;
+}

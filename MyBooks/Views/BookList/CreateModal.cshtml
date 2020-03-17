@@ -1,0 +1,32 @@
+﻿@using Microsoft.Extensions.Localization
+@using MyBooks.Controllers;
+
+@inject IStringLocalizer<BookList> Localizer
+
+<div class="uk-modal" id="modalAddBookList">
+    <div class="uk-modal-dialog">
+        <button type="button" class="uk-modal-close uk-close"></button>
+        <h4>@Localizer["NuevaLista"]</h4>
+        <form id="formBookList" class="uk-form-stacked" method="post">
+            <input type="hidden" name="Id" />
+            <input type="hidden" name="BookId" />
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-1-1">
+                    <div class="parsley-row">
+                        <label for="Name">@Localizer["Nombre"]<span class="req"> *</span></label>
+                        <input name="Name" type="text" for="Name" required class="md-input" />
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-1 uk-margin-medium-top">
+                    <p class="uk-text-muted uk-margin-small-left">@Localizer["EligeColor"]:</p>
+                    <div id="bookListColorPalette">
+                        <partial name="~/Views/Common/ColorPalette.cshtml" />
+                    </div>
+                </div>
+                <div class="uk-width-1-1 uk-margin-medium-top uk-text-right">
+                    <button type="submit" class="md-btn md-btn-success">@Localizer["CrearLista"]</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

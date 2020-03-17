@@ -1,0 +1,165 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.Extensions.Localization
+@using MyBooks.Controllers;
+@using MyBooks.Core;
+
+@inject IStringLocalizer<ApplicationUser> Localizer
+@inject IStringLocalizer<CommonResources> LocalizerCommon
+@inject SignInManager<UserModel> SignInManager
+@inject UserManager<UserModel> UserManager
+@{
+    ViewData["Title"] = "Welcome";
+    UserModel loginUser = await UserManager.GetUserAsync(User);
+}
+
+<div class="uk-margin-small-bottom" style="text-align: center;">
+    <img class="logo_regular" src="~/img/logoMyBooks-min.png" alt="MyBooks" style="height: 30px; width: auto;" />
+</div>
+<div class="md-card uk-width-1-1">
+    <div class="md-card-content">
+
+        <h2 class="heading_b">
+            @string.Format(Localizer["HolaUsuario!"], @loginUser.Name)
+            <span class="sub-heading uk-margin-small-top">@Localizer["SaludoBienvenida"]</span>
+        </h2>
+    </div>
+</div>
+
+<div class="uk-grid">
+
+    <div class="uk-width-medium-1-3 uk-margin-top-remove uk-margin-bottom">
+        <div class="md-card mb_welcome_question">
+            <div class="md-card-head" style="background-color: #4caf50">
+                <h2 class="mb_question heading_b uk-text-center md-color-white">@Localizer["PreguntaBienvenidaLeido"]</h2>
+            </div>
+            <div class="md-card-content">
+                <div id="readedBookQuestion">
+                    <partial name="~/Views/Book/BookSearchSelector.cshtml" />
+                    <div class="mb_book_container uk-margin-medium-top uk-margin-large-bottom" style="display:none;">
+                        <h2 class="heading_b mb_book_title mb_text_one_line_ellipsis"></h2>
+                        <h2 class="heading_c uk-text-muted mb_book_author mb_text_one_line_ellipsis"></h2>
+                        <img class="img_medium mb_book_img uk-margin-medium-top" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-width-medium-1-3 uk-margin-top-remove uk-margin-bottom">
+        <div class="md-card mb_welcome_question" style="display: none;">
+            <div class="md-card-head" style="background-color: #ffc107">
+                <h2 class="mb_question heading_b uk-text-center md-color-white">@Localizer["PreguntaBienvenidaLeyendo"]</h2>
+            </div>
+            <div class="md-card-content">
+                <div id="currentBookQuestion">
+                    <partial name="~/Views/Book/BookSearchSelector.cshtml" />
+                    <div class="mb_book_container uk-margin-medium-top uk-margin-large-bottom" style="display:none;">
+                        <h2 class="heading_b mb_book_title mb_text_one_line_ellipsis"></h2>
+                        <h2 class="heading_c uk-text-muted mb_book_author mb_text_one_line_ellipsis"></h2>
+                        <img class="img_medium mb_book_img uk-margin-medium-top" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-width-medium-1-3 uk-margin-top-remove uk-margin-bottom">
+        <div class="md-card mb_welcome_question" style="display: none;">
+            <div class="md-card-head" style="background-color: #3f51b5">
+                <h2 class="mb_question heading_b uk-text-center md-color-white">@Localizer["PreguntaBienvenidaPendiente"]</h2>
+            </div>
+            <div class="md-card-content">
+                <div id="desiredBookQuestion">
+                    <partial name="~/Views/Book/BookSearchSelector.cshtml" />
+                    <div class="mb_book_container uk-margin-medium-top uk-margin-large-bottom" style="display:none;">
+                        <h2 class="heading_b mb_book_title mb_text_one_line_ellipsis"></h2>
+                        <h2 class="heading_c uk-text-muted mb_book_author mb_text_one_line_ellipsis"></h2>
+                        <img class="img_medium mb_book_img uk-margin-medium-top" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<form id="formWelcome" class="uk-form-stacked" method="post" style="text-align:right; display: none;" asp-area="" asp-controller="User" asp-action="WelcomeQuestions">
+    <input class="questionField" type="hidden" name="ReadedBookId" />
+    <input class="questionField" type="hidden" name="CurrentBookId" />
+    <input class="questionField" type="hidden" name="DesiredBookId" />
+</form>
+
+<partial name="~/Views/Templates/BookListItemView.cshtml" />
+
+@section Scripts {
+
+    <script>
+        let welcomeQuestionIds = [];
+
+        $(function () {
+            MB_Book_SearchSelector.init('#readedBookQuestion .mb_book_search_selector', function (value, item) {
+                $('#formWelcome input[name$="ReadedBookId"]').val(value).change();
+                addBookQuestionPanel('#readedBookQuestion', item);
+            });
+            MB_Book_SearchSelector.init('#currentBookQuestion .mb_book_search_selector', function (value, item) {
+                $('#formWelcome input[name$="CurrentBookId"]').val(value).change();
+                addBookQuestionPanel('#currentBookQuestion', item);
+            });
+            MB_Book_SearchSelector.init('#desiredBookQuestion .mb_book_search_selector', function (value, item) {
+                $('#formWelcome input[name$="DesiredBookId"]').val(value).change();
+                addBookQuestionPanel('#desiredBookQuestion', item);
+            });
+            $('#currentBookQuestion select.mb_book_search_selector').attr('data-input-name', 'CurrentBookId');
+            $('#readedBookQuestion select.mb_book_search_selector').attr('data-input-name', 'ReadedBookId');
+            $('#desiredBookQuestion select.mb_book_search_selector').attr('data-input-name', 'DesiredBookId');
+
+            @if (ViewData.ContainsKey("ErrorMessage"))
+            {
+                @:MB_Notification.show('@ViewData["ErrorMessage"]', 'danger');
+            }
+        });
+
+        function addBookQuestionPanel(cuestionSelector, book) {
+            let bookContainer = $(cuestionSelector + ' .mb_book_container');
+            let title, author, srcImage = '';
+            let display = 'none';
+            if (book != undefined) {
+                title = book.title;
+                author = (book.authors == null) ? 'Autor desconocido' : book.authors.join(', ');
+                srcImage = book.smallImage;
+                display = 'block';
+
+            }
+            $(bookContainer).find('.mb_book_title').html(title);
+            $(bookContainer).find('.mb_book_author').html(author);
+            $(bookContainer).find('.mb_book_img').attr('src', srcImage).attr('alt',title);
+            $(bookContainer).css('display', display)
+        }
+
+        $(document).on("change", "#formWelcome input.questionField", function (item) {
+            let nextVisible = true;
+            $('#formWelcome input.questionField').each(function (index, eachItem) {
+                let question = $('select[data-input-name="' + $(eachItem).attr('name') + '"]')
+                    .closest('.mb_welcome_question');
+
+                if (nextVisible) question.slideDown(250);
+                else question.slideUp(250);
+
+                if (!nextVisible || $(eachItem).val() == "") nextVisible = false;
+            });
+
+            if (!nextVisible) return;
+
+            MB_Modal.alert(
+                '@Localizer["BienvenidaFinalizada"]',
+                function () {
+                    $('#formWelcome').submit();
+                },
+                '@LocalizerCommon["Comenzar"]'
+            );
+
+        });
+    </script>
+
+
+}

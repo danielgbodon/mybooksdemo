@@ -1,0 +1,15 @@
+﻿@using Microsoft.Extensions.Localization
+@using MyBooks.Controllers;
+
+@inject IStringLocalizer<Book> Localizer
+
+<span class="mb_book_id_item mb_start_rating_view" onclick="MB_Book.viewReview(this)">
+    <span class="mb_stars_rating">
+        <i class="uk-icon-justify uk-icon-star md-color-yellow-800"></i>
+        <i class="uk-icon-justify uk-icon-star md-color-yellow-800"></i>
+        <i class="uk-icon-justify uk-icon-star md-color-yellow-800"></i>
+        <i class="uk-icon-justify uk-icon-star-half-empty md-color-yellow-800"></i>
+        <i class="uk-icon-justify uk-icon-star-o md-color-yellow-800"></i>
+    </span>
+    <span class="uk-text-small uk-text-muted uk-margin-small-left mb_num_rating"> 58 @Localizer["Opiniones"]</span>
+</span>

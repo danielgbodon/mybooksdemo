@@ -1,0 +1,10 @@
+﻿@using Microsoft.Extensions.Localization
+@using MyBooks.Core;
+
+@inject IStringLocalizer<CommonResources> Localizer
+
+<div id="colorPalette"></div>
+<input id="inputColorPalette" type="hidden" name="color" />
+<div id="colorPaletteError" class="parsley-errors-list filled">
+    <span class="parsley-required">@Localizer["ValorRequerido"].</span>
+</div>

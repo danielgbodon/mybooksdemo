@@ -1,0 +1,24 @@
+﻿<template id="bookCardTemplate">
+    <div class="uk-margin-medium-top mb_book_card_container">
+        <div class="md-card mb_book_card mb_book_id_item">
+            <div class="md-card-head uk-text-center uk-position-relative mb_book_id_item" onclick="MB_Book.cardClick(this);">
+                <img class="md-card-head-img mb_book_img mb_img_full_width" />
+            </div>
+            <div class="md-card-content">
+                <div class="mb_book_card_content mb_book_id_item" onclick="MB_Book.cardClick(this)">
+                    <h4 class="heading_c uk-margin-bottom mb_book_title"></h4>
+                    <p class="uk-text-muted uk-text-italic mb_book_author"></p>
+                    <p class="uk-text-small mb_book_desc mb_text_one_line_ellipsis"></p>
+                </div>
+                <div class="mb_book_card_footer">
+                    <p class="mb_text_one_line_ellipsis"><partial name="~/Views/Common/StarRatingView.cshtml"/></p>
+                    <div class="uk-align-right mb_btn_lista_container">
+                        <partial name="~/Views/Common/BtnAddBookToList.cshtml" />
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+

@@ -1,0 +1,96 @@
+﻿@using Microsoft.Extensions.Localization
+@using MyBooks.Core;
+
+@inject IStringLocalizer<CommonResources> Localizer
+
+@{
+    UserModel loginUser = (UserModel)ViewData["LoginUser"];
+}
+
+<header id="header_main">
+    <div class="header_main_content">
+        <nav class="uk-navbar">
+
+            <!-- main sidebar switch -->
+            <a href="#" id="sidebar_main_toggle" class="sSwitch sSwitch_left">
+                <span class="sSwitchIcon"></span>
+            </a>
+
+            <!-- secondary sidebar switch -->
+            <a href="#" id="sidebar_secondary_toggle" class="sSwitch sSwitch_right sidebar_secondary_check">
+                <span class="sSwitchIcon"></span>
+            </a>
+
+            <!-- right buttons header -->
+            <div class="uk-navbar-flip">
+                <ul class="uk-navbar-nav user_actions">
+                    <li><a id="full_screen_toggle" class="user_action_icon uk-visible-large" data-uk-tooltip="{pos:'bottom'}" title="@Localizer["PantallaCompleta"]"><i class="material-icons md-24 md-light">fullscreen</i></a></li>
+                    <li><a id="main_search_btn" class="user_action_icon" data-uk-tooltip="{pos:'bottom'}" title="@Localizer["BuscarLibro"]"><i class="material-icons md-24 md-light">&#xE8B6;</i></a></li>
+                    <li data-uk-dropdown="{mode:'click',pos:'bottom-right'}">
+                        <a id="header_btn_user" href="javascript:void(0);" class="user_action_image mb_user_btn_header"><img class="md-user-image" src="~/img/avatar_11_tn.png" alt="" /><span style="margin-left: 0.7rem">@loginUser.Name</span></a>
+                        <div class="uk-dropdown uk-dropdown-small">
+                            <ul class="uk-nav js-uk-prevent">
+                                <li style="opacity: 0.5"><a href="javascript: void(0);" data-uk-tooltip="{pos:'left'}" title="@Localizer["EnDesarrollo"]">@Localizer["EditarPerfil"]</a></li>
+                                <li><a asp-controller="User" asp-action="Logout">@Localizer["CerrarSesion"]</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><span class="uk-text-small uk-text-muted" style="padding: 0px 15px">@Localizer["Idioma"]:</span></li>
+                                <li>
+                                    <div class="sidebar_actions" id="languageSelector">
+                                        <select id="lang_switcher" name="lang_switcher">
+                                            @{
+                                                switch (loginUser.Culture.ToLower())
+                                                {
+                                                    case "es-es":
+                                                        <option value="es" selected>@Localizer["Espanol"]</option>
+                                                        break;
+                                                    case "en-gb":
+                                                    default:
+                                                        // Use the text block below to separate html elements from code
+                                                        <option value="gb" selected>@Localizer["Ingles"]</option>
+                                                        break;  // Always break each case
+
+                                                }
+                                            }
+                                        </select>
+                                        <form id="formCulture" class="uk-form-stacked" method="put" style="text-align:right; display: none;">
+                                            <input type="hidden" name="Culture" />
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+                </ul>
+            </div>
+
+        </nav>
+    </div>
+    <div class="header_main_search_form">
+        <i class="md-icon header_main_search_close material-icons">&#xE5CD;</i>
+        <form id="generalSearch" class="uk-form uk-autocomplete" data-uk-autocomplete="">
+            <input id="txtGeneralSearch" type="text" class="header_main_search_input" />
+            <button class="header_main_search_btn uk-button-link"><i class="md-icon material-icons">&#xE8B6;</i></button>
+            <script type="text/autocomplete">
+                <ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">
+                    {{~items}}
+                    <li data-value="{{ $item.value }}">
+                        <a href="{{ $item.url }}" class="needsclick">
+                            {{ $item.value }}<br>
+                            <span class="uk-text-muted uk-text-small">{{{ $item.text }}}</span>
+                        </a>
+                    </li>
+                    {{/items}}
+                    <li data-value="autocomplete-value">
+                        <a class="needsclick">
+                            Autocomplete Text<br>
+                            <span class="uk-text-muted uk-text-small">Helper text</span>
+                        </a>
+                    </li>
+                </ul>
+            </script>
+        </form>
+    </div>
+</header>
+<!-- main header end -->
