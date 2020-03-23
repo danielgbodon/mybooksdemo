@@ -1,7 +1,7 @@
 # MyBooks
 
 ## :books: Introduction
-MyBooks is a simple web application developed in **ASP.NET Core** following the **MVC design pattern**. Its mission is to **manage books**, being able to obtain them from an external service and **organize them in lists for quick reference**. The interface is intended for a social network of readers and writers that we will not implement in this project.
+MyBooks is a simple **ASP.NET MVC web application**. Its mission is to **manage books**, being able to obtain them from an external service and **organize them in lists for quick reference**. The interface is intended for a social network of readers and writers that we will not implement in this project.
 
 The functionality of MyBooks is simple, manage books, but complex enough to require the implementation of the main features of .NET Framework. **This project intends to serve as an example of implementation of all these characteristics**, which are listed in *Main Code Features*.
 
